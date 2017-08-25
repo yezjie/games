@@ -1,0 +1,257 @@
+*{ margin: 0; padding: 0; }
+body{width: 100vw;height: 100vh; overflow: hidden; font: 16px/1.5 arial,Microsoft YaHei,tahoma,Hiragino Sans GB,\\5b8b\4f53,sans-serif; }
+img{ vertical-align:top; }
+
+/*first*/
+#first{position: absolute; width: 100%; height: 100%; background:url(../img/Z.png) center center/100%;  }
+#load{ position: absolute; width:15%; height: 100px; left:0;top:0;bottom:0;right:0; margin:100% auto; }
+#load img{position: absolute; width:100%; top:0; }
+#first p{ position: absolute; color: #fff; top:70%; text-align: center; width:100%; }
+#start{opacity: 0; transition: all 1s; display: block; height: 54px; position: absolute; top:80%; width:100%; text-align: center; } 
+#start img{ height: 100%; }
+
+/*second*/
+#second{display: none; position: absolute; width:100%; height: 100%; background: url(../img/backg.png) center center/100%;top:0;left:0; }
+#second img{ position: absolute; width:100%; top:0; }
+#second .piao{ position: absolute; top:12%;left:0;animation: piao 3s infinite; }
+#second .tishi{ position: absolute; top:12%;left:37.5%; width: 25%; animation: gui 3s infinite;}
+#dagui{ display: none; }
+#dagui .fz{ transform: rotateY(180deg); }
+#fu img{ position: absolute; left:10%; top:30%; width: 30%; transition: all 0.5s; }
+#baoz,#san{ display: none; position: absolute; width: 100%;height: 100%; top:0;left:0;}
+#san img:first-child{opacity: 0; top: 50%; transform: translateY(-38%);}
+#san img:nth-child(2){ top: 42%; opacity: 0; height: 67.4%; transform: translateY(-38%);}
+#san img:nth-child(3){ top: 0; background: #fff; opacity: 0; transform: scale(2.5) rotate(0deg); left:0; top:0; bottom:0; margin: auto;}
+
+/*third*/
+#third{display: none; position: absolute; top:0; left:0; width: 100%; transition: all 0.75s; }
+#third #f_page{ position: absolute; left:0; top:0; width: 100%; height: 50%; }
+#third #s_page{ position: absolute; left:0; top:50%; width: 100%; height: 50%; background:#711b1e url(../img/last.png) 0 0/100% 100%;}
+#lbtn{ width: 80%; opacity: 0; position: absolute; bottom: 7%; left:10%;display: flex; justify-content: space-around; }
+#lbtn a{ width: 40%; color: #fff; line-height: 30px; height: 30px;border-radius: 30px; border:1px solid #fff; text-align: center; text-decoration: none; }
+#third .xia{ opacity: 0; position: absolute;bottom: 2%;width: 100%;text-align: center;}
+#third .xia img{width: 7%;}
+#third .shang{ position: absolute; top: 6%;width: 7%;left:46.5%;transform: rotate(180deg);}
+#rbg,#leftimg,#rightimg{ position: absolute; top:0; width: 100%; height: 100%; }
+
+/*分享*/
+#fen{display: none; position: absolute; top:0; left:0; background:#333; width: 100%; height: 100%; }
+#fen img{ position: absolute;right: 0; }
+#fen img:nth-child(2){ top:25%; right:18%; }
+/*animation*/
+@keyframes gui{
+	0%{ opacity: 0; }
+	25%{ opacity: 1; }
+	50%{ opacity: 0; }
+	75%{ opacity: 1; }
+	100%{ opacity: 0; }
+}
+.gui{
+	-webkit-animation: gui 1s steps(1, start) infinite;
+	-o-animation: gui 1s steps(1, start) infinite;
+	animation: gui 1s steps(1, start) infinite;
+}
+@keyframes gui1{
+	0%{ opacity: 1; }
+	25%{ opacity: 0; }
+	50%{ opacity: 1;
+		-webkit-transform:rotateY(180deg);
+		-ms-transform:rotateY(180deg);
+		-o-transform:rotateY(180deg);
+		transform:rotateY(180deg); }
+	75%{ opacity: 0; }
+	100%{ opacity: 1;
+		-webkit-transform:rotateY(0deg);
+		-ms-transform:rotateY(0deg);
+		-o-transform:rotateY(0deg);
+		transform:rotateY(0deg); }
+}
+.gui1{
+	-webkit-animation: gui1 1s steps(1, start) infinite;
+	-o-animation: gui1 1s steps(1, start) infinite;
+	animation: gui1 1s steps(1, start) infinite;
+}
+@keyframes tishi{
+	form{ opacity: 1; }
+	to{ opacity: 0; }
+}
+@keyframes piao{
+	0%{ transform: translateY(0); }
+	50%{ transform: translateY(20px); }
+	100%{ transform: translateY(0); }
+}
+@keyframes fu{
+	0%{ opacity: 0; transform: scale(3); }
+	10%{ opacity: 1; transform: scale(1); }
+	20%{ transform: rotate(0deg); }
+	30%{ transform: rotate(2deg); }
+	40%{ transform: rotate(-2deg); }
+	50%{ transform: rotate(0deg); }
+	70%{opacity: 1;}
+	100%{opacity: 0;}
+}
+.fu{
+	-webkit-animation: fu 1.5s ease-in;
+	-o-animation: fu 1.5s ease-in;
+	animation: fu 1.5s ease-in;
+}
+@keyframes bao{
+	0%{ transform: translateY(-1px); }
+	20%{ transform: translateY(1px); }
+	40%{ transform: translateY(-2px); }
+	60%{ transform: translateY(2px); }
+	80%{ transform: translateY(-3px); }
+	100%{ transform: translateY(0px); }
+}
+.bao{
+	-webkit-animation: bao 0.75s ease-in infinite;
+	-o-animation: bao 0.75s ease-in infinite;
+	animation: bao 0.75s ease-in infinite;
+}
+@-webkit-keyframes bomb {
+  0% {
+    opacity: 0;
+    -webkit-transform: scale(1, 1); }
+  9.67742% {
+    opacity: 1;
+    -webkit-transform: scale(3.50883, 3.5087); }
+  16.12903%, 100% {
+    opacity: 1;
+    -webkit-transform: scale(19.48397, 19.48276); } }
+.bomb{
+	display: block;
+	animation: bomb 1s forwards;
+}
+
+@-webkit-keyframes debris {
+  0% {
+    opacity: 0;
+    -webkit-transform: scale(1, 1); }
+  9.67742% {
+    opacity: 1;
+    -webkit-transform: scale(1.20006, 1.34933); }
+  12.90323% {
+    opacity: 1;
+    -webkit-transform: scale(3.50883, 3.5087); }
+  22.58065%, 100% {
+    opacity: 0;
+    -webkit-transform: scale(19.48397, 19.48276); } }
+.debris{
+	display: block;
+	animation: debris 1s forwards;
+}
+
+@-webkit-keyframes spark {
+  0% {
+    opacity: 0;
+    -webkit-transform:scale(2.5) rotate(0deg); }
+  22.58065% {
+    opacity: 0;
+    -webkit-transform:scale(2.5) rotate(0deg); }
+  25.80645% {
+    opacity: 1;
+    -webkit-transform:scale(2.5) rotate(0deg); }
+  100% {
+    opacity: 1;
+    -webkit-transform:scale(2.5) rotate(360deg); } }
+.spark{
+	display: block;
+	background: #fff;
+	animation: spark 1s forwards;
+}
+@-webkit-keyframes xiaa {
+  0%{ transform: translateY(0); }
+  20%{ transform: translateY(10px); }
+  40%{ transform: translateY(0); }
+  60%{ transform: translateY(10px); }
+  80%{ transform: translateY(0); }
+  100%{ transform: translateY(0); }
+}
+.xiaimg{
+	animation: xiaa 2s infinite;
+}
+@-webkit-keyframes shang {
+  0%{  top:4%; }
+  20%{  top:6%; }
+  40%{  top:4%; }
+  60%{  top:6%; }
+  80%{  top:4%; }
+  100%{  top:4%; }
+}
+.shang{
+	animation: shang 2s infinite;
+}
+@-webkit-keyframes zuo {
+  0%{ transform: translateX(-100%); }
+  80%{ transform: translateX(1%); }
+  100%{ transform: translateX(0); }
+}
+.zuo{
+	animation: zuo 2s forwards;
+}
+@-webkit-keyframes you {
+  0%{ transform: translateX(100%); }
+  80%{ transform: translateX(-1%); }
+  100%{ transform: translateX(0); }
+}
+.you{
+	animation: you 2s forwards;
+}
+@-webkit-keyframes youd {
+  0%{ transform: translateX(0%); }
+  50%{ transform: translateX(1%); }
+  100%{ transform: translateX(0); }
+}
+.youd{
+	animation: youd 3s infinite;
+}
+@-webkit-keyframes zuod {
+  0%{ transform: translateX(0%); }
+  50%{ transform: translateX(-1%); }
+  100%{ transform: translateX(0); }
+}
+.zuod{
+	animation: zuod 3s infinite;
+}
+@-webkit-keyframes btnd {
+  0%{ transform: translateY(300%); opacity: 1 }
+  100%{ transform: translateY(0);opacity: 1 }
+}
+.btnd{
+	animation: btnd 1s forwards;
+}
+@keyframes shou{
+	0%{ transform: translate3d(0%,0%,0); }
+	20%{ transform: translate3d(-10%,10%,0); }
+	40%{ transform: translate3d(0%,0%,0); }
+	60%{ transform: translate3d(-2%,2%,0); }
+	80%{ transform: translate3d(0%,0%,0); }
+	100%{ transform: translate3d(0%,0%,0); }
+}
+.shou{
+	-webkit-animation: shou 0.75s ease-in infinite;
+	-o-animation: shou 0.75s ease-in infinite;
+	animation: shou 0.75s ease-in infinite;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

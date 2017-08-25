@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		*{ margin:0; padding: 0; }
+		#can{ border:1px solid #333; }
+	</style>
+</head>
+<body>
+	<canvas id="can" width="1100" height="600"></canvas>
+	<script>
+		var can = document.getElementById("can");
+		var ctx = can.getContext("2d");
+		var bol = true;
+		function Zk(){
+			this.zkArr = [];
+			this.zkIndex = [];
+			this.speedx = 1;
+			this.speedy = 1;
+			this.x = 500;
+			this.y = 535;
+			this.hx = 425;
+			this.bol = true;
+			this.num = -1;
+		}
+		//砖块生成
+		Zk.prototype.rect = function(x,y,w,h){
+			ctx.beginPath();
+			ctx.fillStyle = "#333";
+			ctx.rect(x, y, w, h);
+			ctx.fill();
+			ctx.closePath();
+		}
+		//砖块的位置
+		Zk.prototype.hzk = function(){
+			var x = 0;
+			var y = 0;
+			// for(var i=0;i<55;i++){
+			// 	var num = [];
+			// 	x = (i % 11)*92+53;
+			// 	y = 30;
+			// 	for(var j=i-11;j>=0;j-=11){
+			// 		y += 30;
+			// 	}
+			// 	y=(y/30)*50;
+			// 	num[0] = x;
+			// 	num[1] = y;
+			// 	this.zkIndex[i] = num;
+			// }
+			for(var i=0;i<11;i++){
+				for(var j=0;j<5;j++){
+					var num = [];
+					x = 50+i*92;
+					y = 53+j*50;
+					num[0] = x;
+					num[1] = y;
+					this.num++;
+					this.zkIndex[this.num] = num; 
+				}
+			}
+		}
+		//砖块的绘制
+		Zk.prototype.hszk = function(){
+			for(var i=0;i<55;i++){
+				this.rect(this.zkIndex[i][0],this.zkIndex[i][1],72,30);
+			}
+		}
+		//圆球绘制
+		Zk.prototype.ball = function(){
+			ctx.beginPath();
+			ctx.arc(this.x, this.y, 10, 0, Math.PI*2, false);
+			ctx.fillStyle = "#ccc";
+			ctx.fill();
+		}
+		//圆球移动
+		Zk.prototype.ballMove = function(){
+			if(this.x - 10 < 0 || this.x + 10 > 1100){
+				this.speedx = -this.speedx;
+			}
+			if(this.y - 10 < 0 || this.y + 10 > 600){
+				this.speedy = -this.speedy;
+			}
+			this.x += this.speedx;
+			this.y += this.speedy;
+		}
+		//滑板绘制
+		Zk.prototype.hua = function(){
+			this.rect(this.hx,550,150,10);
+		}
+		//碰撞检测
+		Zk.prototype.pen = function(){
+			for(i=0;i<55;i++){
+
+				var bl = this.x-10;
+				var br = this.x+10;
+				var bt = this.y-10;
+				var bb = this.y+10;
+
+				var zl = this.zkIndex[i][0];
+				var zr = this.zkIndex[i][0]+72;
+				var zt = this.zkIndex[i][1];
+				var zb = this.zkIndex[i][1]+30;
+				if(bl<=zr&&br>=zl&&bt<=zb&&bb>=zt){
+					if(bl==zr||br==zl){
+						this.speedx = -this.speedx;
+						this.zkIndex[i][0] = -72;
+					}else if(bt==zb||bb==zt){
+						this.speedy = -this.speedy;
+						this.zkIndex[i][0] = -72;
+					}
+				}
+			}
+			var hl = this.hx;
+			var hr = this.hx+150;
+			var ht = 550;
+			var hb = 560;
+			if(bl<=hr&&br>=hl&&bt<=hb&&bb>=ht){
+				if(bl==hr||br==hl){
+					this.speedx = -this.speedx;
+				}else if(bt==hb||bb==ht){
+					this.speedy = -this.speedy;
+				}
+			}
+			if(bb>=600){
+				// this.bol = false;
+				cancelAnimationFrame(timer);
+				cancelAnimationFrame(timer);
+				cancelAnimationFrame(timer);
+				cancelAnimationFrame(timer);
+				cancelAnimationFrame(timer);
+			}
+		}
+		//实例化
+		var zk = new Zk();
+		can.onmousemove = function(e){
+			var ev = e||window.event;
+			ctx.clearRect(0, 525, 1100, 35);
+			zk.hx = ev.clientX - 75;
+			zk.rect(zk.hx,550,150,10);
+			if(bol){
+				zk.x = ev.clientX;
+				zk.ball();
+			}
+		}
+
+		var num = 0;
+		document.onclick = function(){
+			function qw(){
+				bol = false;
+				ctx.clearRect(0, 0, 1100, 600);
+				zk.hszk();
+				zk.ballMove();
+				zk.hua();
+				zk.ball();
+				zk.pen();
+				var timer = requestAnimationFrame(qw);
+				
+			}
+			qw();
+			qw();
+			qw();
+			qw();
+		}
+
+		zk.hzk();
+		zk.hua();
+		zk.ball();
+		zk.hszk();
+	</script>
+</body>
+</html>

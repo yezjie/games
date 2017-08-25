@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+    
+    #box {
+        width: 400px;
+        height: 450px;
+        border: 5px solid #333;
+        margin: 0 auto;
+        position: relative;
+        top:100px;
+        background: #f1f1f1;
+    }
+    
+    #top_text {
+        overflow: hidden;
+        margin-top: 20px;
+    }
+    
+    #top_text p:first-child {
+        float: left;
+        margin-left: 10px;
+    }
+    
+    #top_text p:last-child {
+        float: right;
+        margin-right: 10px;
+    }
+    
+    #big_txt {
+        font-weight: 700;
+        font-size: 100px;
+        text-align: center;
+        margin-top: 30px;
+    }
+    
+    #cen_text {
+        width: 300px;
+        margin: 50px auto 0;
+        text-align: center;
+    }
+    
+    #small_txt {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+    }
+    
+    #small_txt span {
+        cursor: pointer;
+        font-size: 50px;
+        font-weight: 700;
+        display: inline-block;
+        width: 19%;
+        text-align: center;
+    }
+    #b_hover{
+    	position: absolute;
+    	top:0;
+    	left: 0;
+    	width: 100%;
+    	height: 100%;
+    	background: rgba(0,0,0,0.5);
+    	display: none;
+    }
+    #b_hover p{
+    	position: absolute;
+    	top:40%;
+    	height: 50px;
+    	margin-top: -25px;
+    	width: 100%;
+    	text-align: center;
+    	color: #fff;
+    }
+    #but{
+    	width: 60px; 
+    	height: 20px;
+    	background: #fff;
+    	border:none;
+    	outline: none;
+    	border-radius: 5px;
+    	position: absolute;
+    	left:50%;
+    	margin-left: -30px;
+    	top: 45%;
+    }
+    </style>
+</head>
+
+<body>
+    <div id="box">
+        <div id="top_text">
+            <p>
+                剩余时间:
+                <span id="shu">20</span>
+            </p>
+            <p>
+                完成:
+                <span id="cjs">0</span>
+            </p>
+        </div>
+        <p id="big_txt">红</p>
+        <p id="cen_text">根据上面的字颜色从下面选择正确的字，选择正确开始游戏</p>
+        <div id="small_txt">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <div id="b_hover">
+        	<p></p> 
+            <button id="but">重新开始</button>
+        </div>
+    </div>
+
+    <script>
+    var big_txt = document.getElementById("big_txt");
+    var small_txt = document.getElementById("small_txt");
+    var sp_txt = small_txt.getElementsByTagName("span");
+    var shu = document.getElementById("shu");
+    var cjs = document.getElementById("cjs");
+    var but = document.getElementById("but");
+    var b_hover = document.getElementById("b_hover");
+    var hov_p = b_hover.getElementsByTagName("p")[0];
+    var cen_text = document.getElementById("cen_text");
+    var arr_b = ["蓝", "红", "绿", "黄", "黑"];
+    var arr_c = ["blue", "red", "green", "yellow", "black"];
+    var arr_n = [];
+
+    function ran(min, max) {
+        return parseInt(Math.random() * (max - min) + min);
+    }
+    //生成一个随机数组，用以赋值
+    function sui() {
+        arr_n = [];
+        while (arr_n.length < sp_txt.length) {
+            var a = ran(0, 5);
+            for (var i = 0; i < arr_n.length; i++) {
+                if (a == arr_n[i]) break;
+            }
+            if (i == arr_n.length) arr_n.push(a);
+        }
+        return arr_n;
+    }
+
+    var num2;
+    var num1;
+
+    function shen() {
+        var arr_n1 = sui();
+        var arr_n2 = sui();
+        num2 = ran(0, 5);
+        num1 = ran(0, 5);
+        big_txt.innerHTML = arr_b[num1];
+        big_txt.style.color = arr_c[num2];
+        for (var i = 0; i < sp_txt.length; i++) {
+            sp_txt[i].index = arr_n1[i];
+            sp_txt[i].innerHTML = arr_b[arr_n1[i]];
+            sp_txt[i].style.color = arr_c[arr_n2[i]];
+        }
+    }
+    shen();
+    
+	//倒数
+    function dao() {
+        var shuzi = shu.innerHTML;
+        var timer = setInterval(function() {
+            shuzi--;
+            shu.innerHTML = shuzi;
+            if (shu.innerHTML == 0) {
+                clearInterval(timer);
+                b_hover.style.display = "block";
+                hov_p.innerHTML = "比赛结束" + "<br>" + "您的成绩为：" + cjs.innerHTML;
+            }
+        }, 1000);
+    }
+
+    var cj = 0;
+    for (var i = 0; i < sp_txt.length; i++) {
+        sp_txt[i].onclick = function() {
+            if (num2 == this.index) {
+                shen();
+                cj++;
+                cjs.innerHTML = cj;
+                cen_text.style.display = "none";
+                if (shu.innerHTML == 20) dao();
+            }
+            else{     	         	
+            	cj--;
+            	if(cj<0){
+            		cj=0;
+            	}
+            	cjs.innerHTML = cj;
+            }
+        }
+    }
+    //从新开始
+    but.onclick = function(){
+    	shen();
+    	cj=0;
+    	cjs.innerHTML = 0;
+    	shu.innerHTML=20;
+    	b_hover.style.display = "none";
+    	cen_text.style.display = "block";
+    }
+    </script>
+</body>
+
+</html>
